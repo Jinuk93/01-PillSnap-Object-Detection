@@ -131,7 +131,7 @@ annotation_id,image_id,category_id,bbox_x,bbox_y,bbox_w,bbox_h,score
 
 <div align="center">
   
-  ## 👥 Team Contributions (가설 → 행동 → 결과 → 교훈)
+  ## 👥 Team Contributions
 
 </div>
 
