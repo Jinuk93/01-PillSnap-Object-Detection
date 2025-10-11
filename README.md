@@ -19,6 +19,24 @@
 📈 **평가지표:** `mAP@[0.75:0.95]`  
 💡 **주요 과제:** 클래스 불균형 완화, 데이터 정제, 성능 향상 모델링
 
+## 📑 프로젝트 보고서
+- 📘 [5팀_프로젝트 보고서.pdf](https://github.com/user-attachments/files/22525383/5._.pdf)
+
+## 🧭 팀 프로젝트 Notion
+- 🌐 [팀 노션 페이지 바로가기](https://coal-sheet-752.notion.site/_AI-4-5-2770d71ee9698043b590c63f18ba22ea)
+
+## 👥 개인별 정리 (협업일지 & 실험 폴더)
+
+| 이름 | 협업일지 (Notion) | 개인 실험 폴더 |
+|------|-------------------|----------------|
+| **김진욱** | [Notion 바로가기](https://coal-sheet-752.notion.site/2770d71ee96980d6a8a9dde19e062d32?v=2770d71ee9698064a0e7000cc1b47e24&source=copy_link) | [./Personal/KJW/](./Personal/KJW/) |
+| **박병현** | [Notion 바로가기](https://famous-gorilla-33d.notion.site/AI-_-_-269c7c1a009280dfb556e494268ea975?source=copy_link) | [./Personal/PBH/](./Personal/PBH/) |
+| **오형주** | [Notion 바로가기](https://rose-laugh-280.notion.site/AI-09-09-09-24-2778de3ce62b80079a87e7926bbc98c5?source=copy_link) | [./Personal/OHJ/](./Personal/OHJ/) |
+| **이현석** | [Notion 바로가기](https://bubbly-psychology-181.notion.site/Codeit-2252dfb1ef688054a879c45c276e8d85?source=copy_link) | [./Personal/LHS/](./Personal/LHS/) |
+| **진수경** | [Notion 바로가기](https://puzzled-salto-827.notion.site/2696a4a5ec8380adb0bfd72fec737b86?v=2696a4a5ec8380fe9893000cccc037c7) | [./Personal/JSG/](./Personal/JSG/) |
+| **함건희** | [Notion 바로가기](https://nostalgic-apricot-f75.notion.site/277fd289d4ef809880e8eef10d388fd3?v=277fd289d4ef8168aa96000c6c160de3&source=copy_link) | [./Personal/HKH/](./Personal/HKH/) |
+
+
 ---
 
 ## 📂 Dataset
