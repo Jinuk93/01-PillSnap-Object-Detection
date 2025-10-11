@@ -5,7 +5,7 @@
 
 📅 **Period:** 2025.09.09 ~ 2025.09.25  
 🏆 **Competition:** Bootcamp Kaggle Private Leaderboard  
-🔗 **Dataset:** AI Hub 경구약제 이미지 데이터 기반  
+🔗 **Dataset:** [AI Hub 경구약제 이미지 데이터 기반](https://www.kaggle.com/competitions/ai04-level1-project/submissions)
 
 </div>
 
