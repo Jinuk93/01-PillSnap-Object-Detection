@@ -33,12 +33,12 @@
 
 | 👤 이름 | 💾 폴더 경로 |
 |---------|---------------|
-| **김진욱** | [./Personal/KJW/](./Personal/KJW/) |
-| **박병현** | [./Personal/PBH/](./Personal/PBH/) |
+| **김진욱** | [./Personal/KJW/](./Personal/KJW/KJW.md) |
+| **박병현** | [./Personal/PBH/](./Personal/PBH/PBH.md) |
 | **오형주** | [./Personal/OHJ/](./Personal/OHJ/) |
-| **이현석** | [./Personal/LHS/](./Personal/LHS/) |
-| **진수경** | [./Personal/JSG/](./Personal/JSG/) |
-| **함건희** | [./Personal/HKH/](./Personal/HKH/) |
+| **이현석** | [./Personal/LHS/](./Personal/LHS/LHS.md) |
+| **진수경** | [./Personal/JSG/](./Personal/JSG/JSG.md) |
+| **함건희** | [./Personal/HKH/](./Personal/HKH/HKH.md) |
 
 ---
 
