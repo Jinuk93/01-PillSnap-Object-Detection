@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💊 Pill Detection: Object Detection & Classification
+# 💊 Pill Detection : Object Detection & Classification
 **"단 한 장의 이미지, 4개의 알약, 완벽한 분류와 위치 검출"**
 
 </div>
@@ -37,12 +37,12 @@
 
 | 프로필 | 이름 | 상세 기여 내용 (Key Contributions) |
 | :---: | :---: | :--- |
-| <img src="https://avatars.githubusercontent.com/u/80089860?v=4.png" width="80"> | **김진욱**<br>*(Modeling)* | • **클래스 불균형 실험** : 단순 오버샘플링(mAP 0.88) 및 Sticker(Copy-Paste) 방식 시도<br>• **인사이트 도출** : Sticker 방식의 실패(mAP 0.77)를 통해 **'문맥(Context) 유지'**의 중요성 입증<br>• **Final Model** : YOLOv12m / imgsz 960 / AdamW 최적화 (Kaggle 0.993 달성) |
-| <img src="https://github.com/user-attachments/assets/b9f1a52f-4304-496d-a19c-2d6b4775a5c3" width="80"> | **이현석**<br>*(Labeling)* | • **Label Refinement** : 라벨 누락 데이터 전수 검사 및 보정 (**0.965 → 0.976**)<br>• **Bbox Correction** : 객체 중심과 비율을 고려한 CIoU 기반 좌표 미세 조정 (**0.976 → 0.983**)<br>• **AutoML** : Random Search(2,187 조합)를 통한 하이퍼파라미터 탐색 |
-| <img src="https://github.com/user-attachments/assets/4e635630-f00c-4026-bb1d-c73ec05f37c8" width="80"> | **함건희**<br>*(Training)* | • **Scheduling** : Epoch 임계점(10~50ep) 비교 실험. 50ep에서 과적합(Oscillation) 확인<br>• **Augmentation** : Rotation, TTA 등 강한 증강 기법이 오히려 성능을 저하시킴을 규명<br>• **Model Size** : YOLO Size별(n, s, m) 성능 비교 및 최적 모델 선정 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **진수경**<br>*(Verification)* | • **Re-verification** : Sticker 방식 실패 원인(문맥 상실) 재검증 및 분석<br>• **Reproducibility** : 실험의 재현성 확보를 위한 파라미터 및 데이터 버전 관리<br>• **Collaboration** : 팀원 간 실험 결과 통합 및 성능 병목 구간 분석 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **박병현**<br>*(Preprocessing)* | • **Image Enhancement** : CLAHE, Unsharp Mask 등 선명도 개선 알고리즘 실험<br>• **Pipeline** : Inference 단계 자동 선명도 조절 파이프라인 구축 (`infer.py`)<br>• **Optimization** : 과도한 전처리(Sharpen)가 노이즈를 유발하여 성능 하락함을 확인 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **오형주**<br>*(Support)* | • **Documentation** : 실험 코드 정리 및 프로젝트 문서화 유지보수<br>• **Analysis Support** : 실험 결과 로그 정리 및 리포트 작성 지원 |
+| <img src="https://github.com/Jinuk93.png" width="100"> | **김진욱**<br>*(Modeling)* | • **클래스 불균형 실험** : 단순 오버샘플링(mAP 0.88) 및 Sticker(Copy-Paste) 방식 시도<br>• **인사이트 도출** : Sticker 방식의 실패(mAP 0.77)를 통해 **'문맥(Context) 유지'**의 중요성 입증<br>• **Final Model** : YOLOv12m / imgsz 960 / AdamW 최적화 (Kaggle 0.993 달성) |
+| <img src="https://github.com/Geundol222.png" width="100"> | **이현석**<br>*(Labeling)* | • **Label Refinement** : 라벨 누락 데이터 전수 검사 및 보정 (**0.965 → 0.976**)<br>• **Bbox Correction** : 객체 중심과 비율을 고려한 CIoU 기반 좌표 미세 조정 (**0.976 → 0.983**)<br>• **AutoML** : Random Search(2,187 조합)를 통한 하이퍼파라미터 탐색 |
+| <img src="https://github.com/rjsgml8723-crypto.png" width="100"> | **함건희**<br>*(Training)* | • **Scheduling** : Epoch 임계점(10~50ep) 비교 실험. 50ep에서 과적합(Oscillation) 확인<br>• **Augmentation** : Rotation, TTA 등 강한 증강 기법이 오히려 성능을 저하시킴을 규명<br>• **Model Size** : YOLO Size별(n, s, m) 성능 비교 및 최적 모델 선정 |
+| <img src="https://github.com/jinsugyeong.png" width="100"> | **진수경**<br>*(Verification)* | • **Re-verification** : Sticker 방식 실패 원인(문맥 상실) 재검증 및 분석<br>• **Reproducibility** : 실험의 재현성 확보를 위한 파라미터 및 데이터 버전 관리<br>• **Collaboration** : 팀원 간 실험 결과 통합 및 성능 병목 구간 분석 |
+| <img src="https://github.com/Kuron08.png" width="100"> | **박병현**<br>*(Preprocessing)* | • **Image Enhancement** : CLAHE, Unsharp Mask 등 선명도 개선 알고리즘 실험<br>• **Pipeline** : Inference 단계 자동 선명도 조절 파이프라인 구축 (`infer.py`)<br>• **Optimization** : 과도한 전처리(Sharpen)가 노이즈를 유발하여 성능 하락함을 확인 |
+| <img src="https://github.com/Loonie95.png" width="100"> | **오형주**<br>*(Support)* | • **Documentation** : 실험 코드 정리 및 프로젝트 문서화 유지보수<br>• **Analysis Support** : 실험 결과 로그 정리 및 리포트 작성 지원 |
 
 ---
 
