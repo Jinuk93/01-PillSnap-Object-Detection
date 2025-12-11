@@ -1,195 +1,141 @@
 <div align="center">
 
-# 💊 Pill Detection Project  
-**Detect up to 4 pills per image — Classify & Localize with mAP Evaluation**
+# 💊 Pill Detection: Object Detection & Classification
+**"단 한 장의 이미지, 4개의 알약, 완벽한 분류와 위치 검출"**
 
-📅 **Period:** 2025.09.09 ~ 2025.09.25  
-🏆 **Competition:** Bootcamp Kaggle Private Leaderboard  
-🔗 **Dataset:** [AI Hub 경구약제 이미지 데이터 기반](https://www.kaggle.com/competitions/ai04-level1-project/submissions)
-
-</div>
-
----
-
-## 📌 Overview
-이 프로젝트의 목표는 <b>한 이미지 안의 최대 4개 알약의 이름(클래스)</b>과  
-<b>위치(바운딩 박스)</b>를 정확히 검출하는 것입니다.  
-
-여러 모델과 이미지 전처리 기법을 실험하며,  
-**데이터 품질 향상과 클래스 불균형 해결**을 통한 성능 극대화를 목표로 했습니다.
-
-📈 **평가지표:** `mAP@[0.75:0.95]`  
-💡 **핵심 과제:** 클래스 불균형 완화 · 라벨 정제 · 성능 향상 모델링
-
----
-
-## 📑 프로젝트 자료
-- 📘 [5팀_프로젝트 보고서.pdf](https://github.com/user-attachments/files/22525383/5._.pdf)
-- 🌐 [팀 노션 페이지 바로가기](https://coal-sheet-752.notion.site/_AI-4-5-2770d71ee9698043b590c63f18ba22ea)
-
----
-
-## 🧪 개인별 실험 폴더 (Experiments)
-
-| 이름 | 경로 |
-|---------|---------------|
-| **김진욱** | [./Personal/KJW/](./Personal/KJW/KJW.md) |
-| **박병현** | [./Personal/PBH/](./Personal/PBH/PBH.md) |
-| **오형주** | [./Personal/OHJ/](./Personal/OHJ/) |
-| **이현석** | [./Personal/LHS/](./Personal/LHS/LHS.md) |
-| **진수경** | [./Personal/JSG/](./Personal/JSG/JSG.md) |
-| **함건희** | [./Personal/HKH/](./Personal/HKH/HKH.md) |
-
----
-
-## 📂 Dataset
-
-- **Source:** AI Hub 경구약제 이미지 데이터 (가공 버전 제공)  
-- **Format:** PNG / COCO JSON  
-- **Structure:**  
-  - `train_images/` — 학습 이미지  
-  - `train_annotations/` — 어노테이션 JSON  
-  - `test_images/` — 테스트 이미지  
-
-> 각 이미지에는 다수의 알약이 포함되어 있으며  
-> `bbox`와 `category_id`를 통해 위치 및 클래스를 구분합니다.
-
-📌 **Annotation 주요 필드**
-
-| 필드명 | 설명 |
-|--------|------|
-| `image_id` | 이미지 고유 ID |
-| `category_id` | 알약 클래스 |
-| `bbox` | `[x, y, width, height]` 좌표 |
-| `annotation_id` | 고유 바운딩 박스 ID |
-
----
-
-## 🧮 Evaluation & Submission
-
-**평가 기준**
-- **팀 단위:** 발표 + 보고서 + GitHub Repository  
-- **개인 단위:** 발표 + 협업일지  
-
-🧾 **Submission File Format**
-
-| Column | Description |
-|--------|-------------|
-| `annotation_id` | 객체 고유 ID |
-| `image_id` | 이미지 ID |
-| `category_id` | 클래스 ID |
-| `bbox_x, bbox_y, bbox_w, bbox_h` | 바운딩 박스 좌표 |
-| `score` | 예측 신뢰도 |
-
-📄 **예시**
-```csv
-annotation_id,image_id,category_id,bbox_x,bbox_y,bbox_w,bbox_h,score
-1,1,1,156,247,211,456,0.91
-2,1,24,498,40,460,474,0.78
-3,1,11,579,700,260,473,0.27
-```
----
-
-<div align="center">
-  
-  ## ✨ What We Actually Did (핵심 시도 & 결과)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![YOLOv12](https://img.shields.io/badge/YOLO-v12-00FFFF?logo=yolo&logoColor=black)](https://github.com/ultralytics/ultralytics)
+[![Kaggle](https://img.shields.io/badge/Kaggle-Competitions-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/)
 
 </div>
 
-### 1️⃣ 데이터·라벨 품질 우선
-1. **라벨 누락 보정 → 점수 상승:** `0.96520 → 0.97617`  
-   ↳ 누락된 annotation 보강으로 실제 객체 학습 정확도 향상
-2. **bbox 겹침 완화 → 소폭 상승:** `0.96520 → 0.96650`  
-   ↳ 잘못된 라벨 학습 방지로 안정성 향상
-3. **Sharpen/CLAHE 과적용 → 역효과:** `0.99004 → 0.98532`  
-   ↳ 과도한 전처리로 색 변형·노이즈 유발
+---
 
-> 💡 **결론:** “증강을 세게”보다 **라벨 정합성·품질 관리**가 성능 향상의 핵심.
+## 1. 프로젝트 개요 (Overview)
+
+**Pill Detection Project**는 한 이미지 내에 존재하는 최대 4개의 알약 객체를 탐지하고, 정확한 클래스로 분류하는 **Object Detection 대회**입니다.
+
+| 구분 | 상세 내용 |
+| :--- | :--- |
+| **기간 및 배경** | • **기간**: 2025.09.09 ~ 2025.09.25 (Bootcamp Kaggle Competition)<br>• **목표**: 이미지 내 알약의 **위치(Bbox)**와 **종류(Class)**를 동시에 예측 |
+| **핵심 과제** | • **Data Quality**: 라벨 노이즈(누락, 겹침) 제거 및 데이터 정제<br>• **Imbalance**: 클래스 불균형 해소를 위한 증강 및 샘플링 전략 수립<br>• **Modeling**: 최신 YOLO 모델(v12) 도입 및 하이퍼파라미터 최적화 |
+| **평가 지표** | • **mAP@[0.75:0.95]** (Mean Average Precision)<br>• 엄격한 IoU Threshold 기준을 적용하여 정밀한 탐지 성능 평가 |
+| **최종 성과** | • **🏆 Kaggle Private Leaderboard 1위 달성 (Score: 0.993)** |
 
 ---
 
-### 2️⃣ 모델·훈련 전략
-- **YOLOv12 계열 중심 실험**
-- **Epoch 증가:** 임계점까지는 성능 향상, 이후 **진동(Overfitting)**  
-- **Rotation·강증강(RandomAffine):** 과하면 성능 저하  
-- **TTA:** 효과 미미  
-- **모델 크기↑:** 성능↑지만 **VRAM 한계**로 대형 모델 실험 제한
+## 2. 최종 결과 (Final Results)
 
----
-
-### 3️⃣ 최종 성과
-🏁 **Kaggle 최종 점수:** `0.993` (**1위 달성 🥇**)  
-💡 **핵심 요인:** 강력한 모델 선택 + 데이터·라벨 품질 관리  
-📚 **참고 문헌:** Ultralytics / AutoAugment / RandAugment / AugMix
+### 🏆 Leaderboard & Inference
+다양한 모델링과 전처리 실험을 통해 최종적으로 **1위(0.993)**를 달성했습니다.
 
 <p align="center">
-  <img width="1405" height="96" alt="image" src="https://github.com/user-attachments/assets/004dcfec-e0cd-4f37-89a5-d7a177afa9ed" />
-  <img width="1416" height="545" alt="image" src="https://github.com/user-attachments/assets/3afac4c6-8766-479f-a8b4-948e1998fe7c" />
+  <img width="100%" alt="Leaderboard Result" src="https://github.com/user-attachments/assets/004dcfec-e0cd-4f37-89a5-d7a177afa9ed" />
+</p>
+<p align="center">
+  <img width="100%" alt="Inference Example" src="https://github.com/user-attachments/assets/3afac4c6-8766-479f-a8b4-948e1998fe7c" />
 </p>
 
 ---
 
-<div align="center">
-  
-  ## 👥 Team Contributions
+## 3. 팀 소개 (Team Contributions)
+> **"데이터의 품질이 성능을 결정한다."는 원칙 아래 집요하게 파고든 팀입니다.**
 
-</div>
-
-### 김진욱 — *클래스 불균형 & 모델 선택*
-- **단순 오버샘플링:** 희귀 클래스 ↑ 기대했으나 **개선 미미 (mAP50–95 = 0.8837)**  
-- **Sticker(객체만 학습):** 문맥 상실로 **성능 하락 (≈ 0.771)**  
-- **최종 세팅:** YOLOv12m / `imgsz=960` / `epochs=10` / `AdamW(auto)`  
-  → 로컬 `mAP50–95 = 0.588`, Kaggle `0.993` (**1위**)  
-> 💡 **교훈:** 단순 “데이터 수 늘리기”보다 **문맥 유지 + 모델 선택**이 핵심.
-
----
-
-### 진수경 — *불균형·문맥 보존 재현 & 검증*
-- Sticker 실패 원인(문맥 상실) 분석 → **문맥 유지형 접근**으로 전환  
-- 실험 재현성 확보(파라미터·데이터 버전 관리)
+| 프로필 | 이름 | 상세 기여 내용 (Key Contributions) |
+| :---: | :---: | :--- |
+| <img src="https://avatars.githubusercontent.com/u/80089860?v=4.png" width="80"> | **김진욱**<br>*(Modeling)* | • **클래스 불균형 실험**: 단순 오버샘플링(mAP 0.88) 및 Sticker(Copy-Paste) 방식 시도<br>• **인사이트 도출**: Sticker 방식의 실패(mAP 0.77)를 통해 **'문맥(Context) 유지'**의 중요성 입증<br>• **Final Model**: YOLOv12m / imgsz 960 / AdamW 최적화 (Kaggle 0.993 달성) |
+| <img src="https://github.com/user-attachments/assets/b9f1a52f-4304-496d-a19c-2d6b4775a5c3" width="80"> | **이현석**<br>*(Labeling)* | • **Label Refinement**: 라벨 누락 데이터 전수 검사 및 보정 (**0.965 → 0.976**)<br>• **Bbox Correction**: 객체 중심과 비율을 고려한 CIoU 기반 좌표 미세 조정 (**0.976 → 0.983**)<br>• **AutoML**: Random Search(2,187 조합)를 통한 하이퍼파라미터 탐색 |
+| <img src="https://github.com/user-attachments/assets/4e635630-f00c-4026-bb1d-c73ec05f37c8" width="80"> | **함건희**<br>*(Training)* | • **Scheduling**: Epoch 임계점(10~50ep) 비교 실험. 50ep에서 과적합(Oscillation) 확인<br>• **Augmentation**: Rotation, TTA 등 강한 증강 기법이 오히려 성능을 저하시킴을 규명<br>• **Model Size**: YOLO Size별(n, s, m) 성능 비교 및 최적 모델 선정 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **진수경**<br>*(Verification)* | • **Re-verification**: Sticker 방식 실패 원인(문맥 상실) 재검증 및 분석<br>• **Reproducibility**: 실험의 재현성 확보를 위한 파라미터 및 데이터 버전 관리<br>• **Collaboration**: 팀원 간 실험 결과 통합 및 성능 병목 구간 분석 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **박병현**<br>*(Preprocessing)* | • **Image Enhancement**: CLAHE, Unsharp Mask 등 선명도 개선 알고리즘 실험<br>• **Pipeline**: Inference 단계 자동 선명도 조절 파이프라인 구축 (`infer.py`)<br>• **Optimization**: 과도한 전처리(Sharpen)가 노이즈를 유발하여 성능 하락함을 확인 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **오형주**<br>*(Support)* | • **Documentation**: 실험 코드 정리 및 프로젝트 문서화 유지보수<br>• **Analysis Support**: 실험 결과 로그 정리 및 리포트 작성 지원 |
 
 ---
 
-### 함건희 — *훈련 스케줄링·증강·사이즈 비교*
-- **Epoch 10→30:** `0.74 → 0.83`, **50ep에서도 0.83 (임계점 도달)**  
-- **Rotation 과다:** 성능 하락 / **TTA:** 유의미한 개선 없음  
-- **YOLO size:** `n(10→50ep: 0.84→0.91)`, `s(10→50ep: 0.88→0.92)`  
-> 💡 **교훈:** “과한 변형”은 독, **합리적 epoch·사이즈**가 핵심.
+## 4. 핵심 실험 및 분석 (Key Experiments)
+
+저희 팀은 **"모델보다 데이터"**라는 가설을 검증하기 위해 단계별 실험을 진행했습니다.
+
+### 🧪 1. 데이터 품질 개선 (Data Quality)
+가장 큰 성능 향상은 모델 변경이 아닌 **라벨 데이터 수정**에서 발생했습니다.
+- **라벨 누락 보정**: `mAP 0.965` → `0.976` (**+0.011**) 🔺
+  - 육안 검수를 통해 Ground Truth가 누락된 데이터를 찾아내어 재라벨링 수행.
+- **Bbox 정제 (CIoU)**: `mAP 0.976` → `0.983` (**+0.007**) 🔺
+  - 객체 중심과 비율을 고려하여 Bbox 좌표를 미세 조정.
+- **겹침(Overlap) 완화**: 잘못된 라벨 학습 방지로 안정성 향상 (`0.965` → `0.966`)
+
+### 🧪 2. 전처리 및 증강 (Preprocessing)
+"과도한 증강은 독이 된다"는 것을 확인했습니다.
+- **Sharpen/CLAHE 과적용**: `0.990` → `0.985` 📉 (색상 왜곡 및 노이즈로 인한 성능 저하)
+- **Sticker(Copy-Paste)**: 배경 문맥(Context)이 사라져 성능 하락 확인.
+- **결론**: 원본 이미지의 특성을 해치지 않는 선에서의 **보수적인 증강** 채택.
+
+### 🧪 3. 모델링 및 학습 전략 (Modeling)
+- **Model Selection**: YOLOv8, v10, v11 비교 실험 끝에 **YOLOv12m** 선정.
+- **Epoch**: 10 Epoch에서 50 Epoch까지 늘려보았으나, 특정 시점 이후 과적합(Overfitting) 발생 확인.
+- **Resolution**: `imgsz=960`에서 최적 성능 도출.
+
+### 📊 실험 요약표 (Experiment Summary)
+
+| 트랙 | 시도 (Attempt) | 핵심 결과 (Result) | 결론 (Conclusion) |
+| :--- | :--- | :--- | :--- |
+| **라벨 품질** | pseudo-label → CIoU 보정 | `0.965 → 0.983` 🔺 | **라벨 품질 개선이 최우선** (가장 큰 효과) |
+| **데이터 정제** | Bbox 겹침 완화 | `0.965 → 0.966` 🔺 | 정합성 확보로 학습 안정성 소폭 개선 |
+| **전처리** | Sharpen / CLAHE 과적용 | `0.990 → 0.985` 📉 | 과도한 전처리는 노이즈 유발로 역효과 |
+| **불균형 해소** | 단순 복제 / Sticker | 개선 미미 / 하락 | 단순 증강보다 **문맥(Context) 유지**가 중요 |
+| **최적화** | YOLOv12m + Epoch 10 | **Kaggle 0.993 (1위)** 🥇 | **강한 모델 + 고품질 데이터** 조합이 정답 |
 
 ---
 
-### 이현석 — *Pseudo-labeling·CIoU 보정·랜덤서치*
-- **라벨 보강:** `0.965 → 0.976 (+0.011)`  
-- **CIoU 보정:** 중심·비율 고려 → `0.983 (+0.007)`  
-- **랜덤서치:** 2,187 조합 중 최고 `0.9259` (통계적 유의성 낮음)  
-> 💡 **교훈:** **라벨 품질 보정이 최우선**, 증강은 **보수적으로**.
+## 5. 데이터셋 구조 (Dataset)
 
----
+- **Source:** AI Hub 경구약제 이미지 데이터 (가공 버전 제공)
+- **Format:** PNG / COCO JSON Format
 
-### 박병현 — *선명도·배포 동선*
-- **CLAHE + Unsharp:** 색 변형·그림자 부작용 → **CLAHE 단독 적용**  
-- **Inference 단계:** 자동 선명도 옵션 추가(`infer.py` 내부, 원본 미수정)  
-- **YOLOv12s:** `0.98532`, **YOLOv12 XL:** 자원 한계로 중단  
-> 💡 **교훈:** 자원 한계 환경에서는 **경량 + 정돈 데이터**가 최선.
+```bash
+DATASET/
+├── train_images/          # 📄 학습 이미지
+├── train_annotations/     # 🏷️ 학습용 어노테이션 (JSON)
+├── test_images/           # 📄 테스트 이미지
+└── sample_submission.csv  # 📝 제출 양식
+```
 
----
+**📌 Annotation 주요 필드**
 
-### 오형주 — *문서·코드 유지보수*
-- 코드 정리, 문서화, 실험 서포트 기여
+| 필드명 | 설명 |
+| :--- | :--- |
+| `image_id` | 이미지 고유 ID |
+| `category_id` | 알약 클래스 ID |
+| `bbox` | `[x, y, width, height]` 좌표 |
+| `annotation_id` | 고유 바운딩 박스 ID |
 
----
+## 6. 개인별 실험 폴더 (Experiments)
 
-<div align="center">
-  
-  ## 📊 실험 요약 표
+팀원들이 각자 수행한 실험 코드는 아래 폴더에서 확인할 수 있습니다.
 
-</div>
+| 이름 | 경로 (Link) | 주요 내용 |
+| :---: | :--- | :--- |
+| **김진욱** | [📂 ./Personal/KJW/](./Personal/KJW/) | YOLOv12 모델링, 클래스 불균형 실험 |
+| **박병현** | [📂 ./Personal/PBH/](./Personal/PBH/) | 이미지 전처리(CLAHE) 및 추론 파이프라인 |
+| **오형주** | [📂 ./Personal/OHJ/](./Personal/OHJ/) | 베이스라인 코드 및 유틸리티 |
+| **이현석** | [📂 ./Personal/LHS/](./Personal/LHS/) | 라벨 노이즈 보정, Hyperparameter Tuning |
+| **진수경** | [📂 ./Personal/JSG/](./Personal/JSG/) | 실험 결과 검증 및 데이터 버전 관리 |
+| **함건희** | [📂 ./Personal/HKH/](./Personal/HKH/) | 학습 스케줄링(Epoch) 및 Augmentation 테스트 |
 
-| 트랙 | 시도 | 핵심 결과 | 결론 |
-|------|------|-----------|------|
-| 라벨 누락 보정 | pseudo-label → CIoU 보정 | `0.965 → 0.983` | **라벨 품질이 최우선** |
-| bbox 겹침 완화 | 겹침 해결 | `0.96520 → 0.96650` | 정합성↑로 **소폭 개선** |
-| 선명도(Sharpen/CLAHE) | 과적용 | `0.99004 → 0.98532` | **과도한 전처리 역효과** |
-| 클래스 불균형 | 단순 복제·Sticker | 개선 미미/하락 | **문맥 유지형 접근 필요** |
-| 모델·훈련 | YOLOv12m, epoch 최적 | `Kaggle 0.993 (1위)` | **강한 모델 + 데이터 품질** |
+## 7. 기술 스택 (Tech Stack)
 
+| 분류 | 스택 & 라이브러리 |
+| :--- | :--- |
+| **Language** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) |
+| **Framework** | ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white) ![Ultralytics](https://img.shields.io/badge/Ultralytics(YOLO)-00FFFF?style=flat-square&logo=yolo&logoColor=black) |
+| **Data Processing** | ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white) ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white) ![Albumentations](https://img.shields.io/badge/Albumentations-FF0000?style=flat-square) |
+| **Collaboration** | ![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) |
+
+## 8. 관련 자료 (Documents)
+
+| 구분 | 자료명 | 링크 |
+| :--- | :--- | :---: |
+| **📘 보고서** | **5팀 최종 프로젝트 보고서 (PDF)** | [다운로드](https://github.com/user-attachments/files/22525383/5._.pdf) |
+| **🌐 협업** | **팀 노션(Notion) 페이지** | [바로가기](https://coal-sheet-752.notion.site/_AI-4-5-2770d71ee9698043b590c63f18ba22ea) |
+| **🔗 대회** | **Kaggle Competition Link** | [바로가기](https://www.kaggle.com/competitions/ai04-level1-project/submissions) |
