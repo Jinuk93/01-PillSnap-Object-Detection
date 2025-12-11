@@ -3,37 +3,30 @@
 # 💊 Pill Detection: Object Detection & Classification
 **"단 한 장의 이미지, 4개의 알약, 완벽한 분류와 위치 검출"**
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![YOLOv12](https://img.shields.io/badge/YOLO-v12-00FFFF?logo=yolo&logoColor=black)](https://github.com/ultralytics/ultralytics)
-[![Kaggle](https://img.shields.io/badge/Kaggle-Competitions-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/)
-
 </div>
 
 ---
 
 ## 1. 프로젝트 개요 (Overview)
 
-**Pill Detection Project**는 한 이미지 내에 존재하는 최대 4개의 알약 객체를 탐지하고, 정확한 클래스로 분류하는 **Object Detection 대회**입니다.
+**Pill Detection Project**는 한 이미지 내에 존재하는 최대 4개의 알약 객체를 탐지하고,<br> 정확한 클래스로 분류하는 **Object Detection 대회**입니다.
 
 | 구분 | 상세 내용 |
 | :--- | :--- |
-| **기간 및 배경** | • **기간**: 2025.09.09 ~ 2025.09.25 (Bootcamp Kaggle Competition)<br>• **목표**: 이미지 내 알약의 **위치(Bbox)**와 **종류(Class)**를 동시에 예측 |
-| **핵심 과제** | • **Data Quality**: 라벨 노이즈(누락, 겹침) 제거 및 데이터 정제<br>• **Imbalance**: 클래스 불균형 해소를 위한 증강 및 샘플링 전략 수립<br>• **Modeling**: 최신 YOLO 모델(v12) 도입 및 하이퍼파라미터 최적화 |
+| **기간 및 배경** | • **기간** : 2025.09.09 ~ 2025.09.25 (Bootcamp Kaggle Competition)<br>• **목표** : 이미지 내 알약의 <b>위치(Bbox)</b>와 <b>종류(Class)<b>를 동시에 예측 |
+| **핵심 과제** | • **Data Quality** : 라벨 노이즈(누락, 겹침) 제거 및 데이터 정제<br>• **Imbalance** : 클래스 불균형 해소를 위한 증강 및 샘플링 전략 수립<br>• **Modeling** : 최신 YOLO 모델(v12) 도입 및 하이퍼파라미터 최적화 |
 | **평가 지표** | • **mAP@[0.75:0.95]** (Mean Average Precision)<br>• 엄격한 IoU Threshold 기준을 적용하여 정밀한 탐지 성능 평가 |
-| **최종 성과** | • **🏆 Kaggle Private Leaderboard 1위 달성 (Score: 0.993)** |
+| **최종 성과** | • **🏆 Kaggle Private Leaderboard 1위 달성 (Score : 0.993)** |
 
 ---
 
 ## 2. 최종 결과 (Final Results)
 
 ### 🏆 Leaderboard & Inference
-다양한 모델링과 전처리 실험을 통해 최종적으로 **1위(0.993)**를 달성했습니다.
+다양한 모델링과 전처리 실험을 통해 최종적으로 <b>1위(0.993)</b>를 달성했습니다.
 
 <p align="center">
   <img width="100%" alt="Leaderboard Result" src="https://github.com/user-attachments/assets/004dcfec-e0cd-4f37-89a5-d7a177afa9ed" />
-</p>
-<p align="center">
   <img width="100%" alt="Inference Example" src="https://github.com/user-attachments/assets/3afac4c6-8766-479f-a8b4-948e1998fe7c" />
 </p>
 
@@ -44,37 +37,43 @@
 
 | 프로필 | 이름 | 상세 기여 내용 (Key Contributions) |
 | :---: | :---: | :--- |
-| <img src="https://avatars.githubusercontent.com/u/80089860?v=4.png" width="80"> | **김진욱**<br>*(Modeling)* | • **클래스 불균형 실험**: 단순 오버샘플링(mAP 0.88) 및 Sticker(Copy-Paste) 방식 시도<br>• **인사이트 도출**: Sticker 방식의 실패(mAP 0.77)를 통해 **'문맥(Context) 유지'**의 중요성 입증<br>• **Final Model**: YOLOv12m / imgsz 960 / AdamW 최적화 (Kaggle 0.993 달성) |
-| <img src="https://github.com/user-attachments/assets/b9f1a52f-4304-496d-a19c-2d6b4775a5c3" width="80"> | **이현석**<br>*(Labeling)* | • **Label Refinement**: 라벨 누락 데이터 전수 검사 및 보정 (**0.965 → 0.976**)<br>• **Bbox Correction**: 객체 중심과 비율을 고려한 CIoU 기반 좌표 미세 조정 (**0.976 → 0.983**)<br>• **AutoML**: Random Search(2,187 조합)를 통한 하이퍼파라미터 탐색 |
-| <img src="https://github.com/user-attachments/assets/4e635630-f00c-4026-bb1d-c73ec05f37c8" width="80"> | **함건희**<br>*(Training)* | • **Scheduling**: Epoch 임계점(10~50ep) 비교 실험. 50ep에서 과적합(Oscillation) 확인<br>• **Augmentation**: Rotation, TTA 등 강한 증강 기법이 오히려 성능을 저하시킴을 규명<br>• **Model Size**: YOLO Size별(n, s, m) 성능 비교 및 최적 모델 선정 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **진수경**<br>*(Verification)* | • **Re-verification**: Sticker 방식 실패 원인(문맥 상실) 재검증 및 분석<br>• **Reproducibility**: 실험의 재현성 확보를 위한 파라미터 및 데이터 버전 관리<br>• **Collaboration**: 팀원 간 실험 결과 통합 및 성능 병목 구간 분석 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **박병현**<br>*(Preprocessing)* | • **Image Enhancement**: CLAHE, Unsharp Mask 등 선명도 개선 알고리즘 실험<br>• **Pipeline**: Inference 단계 자동 선명도 조절 파이프라인 구축 (`infer.py`)<br>• **Optimization**: 과도한 전처리(Sharpen)가 노이즈를 유발하여 성능 하락함을 확인 |
-| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **오형주**<br>*(Support)* | • **Documentation**: 실험 코드 정리 및 프로젝트 문서화 유지보수<br>• **Analysis Support**: 실험 결과 로그 정리 및 리포트 작성 지원 |
+| <img src="https://avatars.githubusercontent.com/u/80089860?v=4.png" width="80"> | **김진욱**<br>*(Modeling)* | • **클래스 불균형 실험** : 단순 오버샘플링(mAP 0.88) 및 Sticker(Copy-Paste) 방식 시도<br>• **인사이트 도출** : Sticker 방식의 실패(mAP 0.77)를 통해 **'문맥(Context) 유지'**의 중요성 입증<br>• **Final Model** : YOLOv12m / imgsz 960 / AdamW 최적화 (Kaggle 0.993 달성) |
+| <img src="https://github.com/user-attachments/assets/b9f1a52f-4304-496d-a19c-2d6b4775a5c3" width="80"> | **이현석**<br>*(Labeling)* | • **Label Refinement** : 라벨 누락 데이터 전수 검사 및 보정 (**0.965 → 0.976**)<br>• **Bbox Correction** : 객체 중심과 비율을 고려한 CIoU 기반 좌표 미세 조정 (**0.976 → 0.983**)<br>• **AutoML** : Random Search(2,187 조합)를 통한 하이퍼파라미터 탐색 |
+| <img src="https://github.com/user-attachments/assets/4e635630-f00c-4026-bb1d-c73ec05f37c8" width="80"> | **함건희**<br>*(Training)* | • **Scheduling** : Epoch 임계점(10~50ep) 비교 실험. 50ep에서 과적합(Oscillation) 확인<br>• **Augmentation** : Rotation, TTA 등 강한 증강 기법이 오히려 성능을 저하시킴을 규명<br>• **Model Size** : YOLO Size별(n, s, m) 성능 비교 및 최적 모델 선정 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **진수경**<br>*(Verification)* | • **Re-verification** : Sticker 방식 실패 원인(문맥 상실) 재검증 및 분석<br>• **Reproducibility** : 실험의 재현성 확보를 위한 파라미터 및 데이터 버전 관리<br>• **Collaboration** : 팀원 간 실험 결과 통합 및 성능 병목 구간 분석 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **박병현**<br>*(Preprocessing)* | • **Image Enhancement** : CLAHE, Unsharp Mask 등 선명도 개선 알고리즘 실험<br>• **Pipeline** : Inference 단계 자동 선명도 조절 파이프라인 구축 (`infer.py`)<br>• **Optimization** : 과도한 전처리(Sharpen)가 노이즈를 유발하여 성능 하락함을 확인 |
+| <img src="https://github.com/user-attachments/assets/088a073c-cf1c-40a1-97fb-1d2c1f1b8794" width="80"> | **오형주**<br>*(Support)* | • **Documentation** : 실험 코드 정리 및 프로젝트 문서화 유지보수<br>• **Analysis Support** : 실험 결과 로그 정리 및 리포트 작성 지원 |
 
 ---
 
 ## 4. 핵심 실험 및 분석 (Key Experiments)
 
-저희 팀은 **"모델보다 데이터"**라는 가설을 검증하기 위해 단계별 실험을 진행했습니다.
+저희 팀은 <b>"모델보다 데이터"</b>라는 가설을 검증하기 위해 단계별 실험을 진행했습니다.
 
 ### 🧪 1. 데이터 품질 개선 (Data Quality)
 가장 큰 성능 향상은 모델 변경이 아닌 **라벨 데이터 수정**에서 발생했습니다.
-- **라벨 누락 보정**: `mAP 0.965` → `0.976` (**+0.011**) 🔺
-  - 육안 검수를 통해 Ground Truth가 누락된 데이터를 찾아내어 재라벨링 수행.
-- **Bbox 정제 (CIoU)**: `mAP 0.976` → `0.983` (**+0.007**) 🔺
-  - 객체 중심과 비율을 고려하여 Bbox 좌표를 미세 조정.
-- **겹침(Overlap) 완화**: 잘못된 라벨 학습 방지로 안정성 향상 (`0.965` → `0.966`)
+- **라벨 누락 보정** <br>: `mAP 0.965` → `0.976` (**+0.011**) 🔺
+  - 육안 검수를 통해 Ground Truth가 누락된 데이터를 찾아내어 재라벨링 수행
+- **Bbox 정제 (CIoU)** <br>: `mAP 0.976` → `0.983` (**+0.007**) 🔺
+  - 객체 중심과 비율을 고려하여 Bbox 좌표를 미세 조정
+- **겹침(Overlap) 완화** <br>: 잘못된 라벨 학습 방지로 안정성 향상 (`0.965` → `0.966`)
+
+---
 
 ### 🧪 2. 전처리 및 증강 (Preprocessing)
 "과도한 증강은 독이 된다"는 것을 확인했습니다.
-- **Sharpen/CLAHE 과적용**: `0.990` → `0.985` 📉 (색상 왜곡 및 노이즈로 인한 성능 저하)
-- **Sticker(Copy-Paste)**: 배경 문맥(Context)이 사라져 성능 하락 확인.
-- **결론**: 원본 이미지의 특성을 해치지 않는 선에서의 **보수적인 증강** 채택.
+- **Sharpen/CLAHE 과적용** <br>: `0.990` → `0.985` 📉 (색상 왜곡 및 노이즈로 인한 성능 저하)
+- **Sticker(Copy-Paste)** <br>: 배경 문맥(Context)이 사라져 성능 하락 확인
+- **결론** <br>: 원본 이미지의 특성을 해치지 않는 선에서의 **보수적인 증강** 채택
+
+---
 
 ### 🧪 3. 모델링 및 학습 전략 (Modeling)
-- **Model Selection**: YOLOv8, v10, v11 비교 실험 끝에 **YOLOv12m** 선정.
-- **Epoch**: 10 Epoch에서 50 Epoch까지 늘려보았으나, 특정 시점 이후 과적합(Overfitting) 발생 확인.
-- **Resolution**: `imgsz=960`에서 최적 성능 도출.
+- **Model Selection** <br>: YOLOv8, v10, v11 비교 실험 끝에 **YOLOv12m** 선정
+- **Epoch** <br>: 10 Epoch에서 50 Epoch까지 늘려보았으나, 특정 시점 이후 과적합(Overfitting) 발생 확인
+- **Resolution** <br>: `imgsz=960`에서 최적 성능 도출
+
+---
 
 ### 📊 실험 요약표 (Experiment Summary)
 
@@ -90,8 +89,8 @@
 
 ## 5. 데이터셋 구조 (Dataset)
 
-- **Source:** AI Hub 경구약제 이미지 데이터 (가공 버전 제공)
-- **Format:** PNG / COCO JSON Format
+- **Source :** AI Hub 경구약제 이미지 데이터 (가공 버전 제공)
+- **Format :** PNG / COCO JSON Format
 
 ```bash
 DATASET/
@@ -116,12 +115,12 @@ DATASET/
 
 | 이름 | 경로 (Link) | 주요 내용 |
 | :---: | :--- | :--- |
-| **김진욱** | [📂 ./Personal/KJW/](./Personal/KJW/) | YOLOv12 모델링, 클래스 불균형 실험 |
-| **박병현** | [📂 ./Personal/PBH/](./Personal/PBH/) | 이미지 전처리(CLAHE) 및 추론 파이프라인 |
-| **오형주** | [📂 ./Personal/OHJ/](./Personal/OHJ/) | 베이스라인 코드 및 유틸리티 |
-| **이현석** | [📂 ./Personal/LHS/](./Personal/LHS/) | 라벨 노이즈 보정, Hyperparameter Tuning |
-| **진수경** | [📂 ./Personal/JSG/](./Personal/JSG/) | 실험 결과 검증 및 데이터 버전 관리 |
-| **함건희** | [📂 ./Personal/HKH/](./Personal/HKH/) | 학습 스케줄링(Epoch) 및 Augmentation 테스트 |
+| **김진욱** | [📂 ./Personal/KJW/](./Personal/KJW/KJW.md) | YOLOv12 모델링, 클래스 불균형 실험 |
+| **박병현** | [📂 ./Personal/PBH/](./Personal/PBH/PBH.md) | 이미지 전처리(CLAHE) 및 추론 파이프라인 |
+| **오형주** | [📂 ./Personal/OHJ/](./Personal/OHJ/OHJ.md) | 베이스라인 코드 및 유틸리티 |
+| **이현석** | [📂 ./Personal/LHS/](./Personal/LHS/LHS.md) | 라벨 노이즈 보정, Hyperparameter Tuning |
+| **진수경** | [📂 ./Personal/JSG/](./Personal/JSG/JSG.md) | 실험 결과 검증 및 데이터 버전 관리 |
+| **함건희** | [📂 ./Personal/HKH/](./Personal/HKH/HKH.md) | 학습 스케줄링(Epoch) 및 Augmentation 테스트 |
 
 ## 7. 기술 스택 (Tech Stack)
 
